@@ -27,17 +27,25 @@
 @synthesize beaconRegion = _beaconRegion;
 @synthesize locationManager = _locationManager;
 
+- (IBAction)valueChanged:(UISwitch *)sender {
+    if (sender.isOn) {
+        [self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
+    } else {
+        [self.locationManager stopRangingBeaconsInRegion:self.beaconRegion];
+    }
+}
 
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
-    [self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
+    self.beaconFoundLabel.text = @"did start monitoring";
 }
 
 - (void)initRegion {
-    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"E2C56DB5-DFFB-48D2-B060-D0F5A71096E0"];
+    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:kBeaconStationUUID];
     //self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:nil identifier:nil];
-    self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:@"Apple AirLocate E2C56DB5"];
+    self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:kID];
+    
     [self.locationManager startMonitoringForRegion:self.beaconRegion];
-    self.beaconFoundLabel.text = @"init region success";
+    self.beaconFoundLabel.text = @"init success";
     //NSLog(@"init region");
     
 }
@@ -46,6 +54,9 @@
     NSLog(@"did enter region");
     self.beaconFoundLabel.text = @"did enter region";
     [self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
+    UILocalNotification *notification = [[UILocalNotification alloc]init];
+    notification.alertBody = @"You enter the Region";
+    [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
 }
 
 -(void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
@@ -53,6 +64,11 @@
     self.beaconFoundLabel.text = @"did exit success";
     [self.locationManager stopRangingBeaconsInRegion:self.beaconRegion];
     //self.beaconFoundLabel.text = @"No";
+
+    UILocalNotification *notification = [[UILocalNotification alloc]init];
+    notification.alertBody = @"You leave the Region";
+    [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+
 }
 
 -(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region {
@@ -76,6 +92,20 @@
     self.rssiLabel.text = [NSString stringWithFormat:@"%i", beacon.rssi];
 }
 
+- (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
+    
+    UILocalNotification *notification = [[UILocalNotification alloc]init];
+    
+    if (state == CLRegionStateInside) {
+        notification.alertBody = @"You are in Region";
+    } else if (state == CLRegionStateOutside) {
+        notification.alertBody = @"You are out of Region";
+    } else {
+        return;
+    }
+    [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+}
+
 
 - (void)viewDidLoad
 {
@@ -92,6 +122,14 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:YES];
+    
+    [self.locationManager stopMonitoringForRegion:self.beaconRegion];
+    [self.locationManager stopRangingBeaconsInRegion:self.beaconRegion];
+    
 }
 
 

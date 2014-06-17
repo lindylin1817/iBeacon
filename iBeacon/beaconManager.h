@@ -1,18 +1,20 @@
 //
-//  beaconReader.h
+//  beaconManager.h
 //  iBeacon
 //
-//  Created by ShaoLing on 6/6/14.
+//  Created by ShaoLing on 13/6/14.
 //  Copyright (c) 2014 dastone. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface beaconReader : UIViewController <CLLocationManagerDelegate>
+@interface beaconManager : NSObject <CLLocationManagerDelegate>
 
-- (void)initRegion;
-
+- (NSMutableArray *) beaconsInRegion;
+- (void)scanBeacons;
+- (void)startMonitoringRegion;
+- (void)stopMonitoringRegion;
 
 @end
 

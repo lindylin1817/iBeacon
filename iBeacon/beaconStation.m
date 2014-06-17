@@ -23,15 +23,32 @@
 @synthesize beaconRegion = _beaconRegion;
 @synthesize peripheralManager = _peripheralManager;
 
-#define kBeaconStationUUID @"E2C56DB5-DFFB-48D2-B060-D0F5A71096E0"
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+    // Create the peripheral manager.
+    self.peripheralManager = [[CBPeripheralManager alloc]
+                              initWithDelegate:self queue:nil options:nil];
+    
     [self initPublishBeacon];
 }
+
+
+- (IBAction)valueChanged:(UISwitch *)sender {
+    UISwitch *swc = sender;
+    
+    if (swc.isOn) {
+        [self initPublishBeacon];
+    } else {
+        [self.peripheralManager stopAdvertising];
+    }
+    
+}
+
 
 - (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral {
     if (peripheral.state < CBPeripheralManagerStatePoweredOn) {
@@ -46,23 +63,29 @@
     NSUUID *proximityUUID = [[NSUUID alloc]
                              initWithUUIDString:kBeaconStationUUID];
     
+    CLBeaconMajorValue major = 16;
+    CLBeaconMinorValue minor = 256;
+    
     // Create the beacon region.
-    self.beaconRegion = [[CLBeaconRegion alloc]
-                                    initWithProximityUUID:proximityUUID
-                                    identifier:@"com.mycompany.myregion"];
+    self.beaconRegion = [[CLBeaconRegion alloc]initWithProximityUUID:proximityUUID
+                                                               major:major
+                                                               minor:minor
+                                                          identifier:kID];
     // Create a dictionary of advertisement data.
     NSDictionary *beaconPeripheralData =
-    [self.beaconRegion peripheralDataWithMeasuredPower:nil];
+    [self.beaconRegion peripheralDataWithMeasuredPower:kPower];
     
-    // Create the peripheral manager.
-    self.peripheralManager = [[CBPeripheralManager alloc]
-                                              initWithDelegate:self queue:nil options:nil];
+
     
     // Start advertising your beacon's data.
     [self.peripheralManager startAdvertising:beaconPeripheralData];
     
+    
     self.labelUUID.text = kBeaconStationUUID;
-    self.labelStatus.text = @"beacon published";
+    
+    NSString *beaconPublished = [[NSString alloc]initWithFormat:@"Major:%d Minor:%d beacon published", major, minor];
+    
+    self.labelStatus.text = beaconPublished;
 }
 
 - (void)didReceiveMemoryWarning
