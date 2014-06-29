@@ -8,6 +8,7 @@
 
 #import "beaconTableViewController.h"
 #import "beaconManager.h"
+#import "beaconReader.h";
 
 @interface beaconTableViewController ()
 
@@ -46,7 +47,7 @@
     [[NSNotificationCenter defaultCenter]addObserverForName:@"beacons" object:nil queue:nil usingBlock:^(NSNotification *note) {
         
         _beaconInfo = self.beaconManager.beaconsInRegion;
-        UITableView *tableView = self.view;
+        UITableView *tableView = (UITableView *)self.view;
         [tableView reloadData];
 
     }];
@@ -87,7 +88,7 @@
     
     // Configure the cell...
     
-    int row = indexPath.row;
+    NSInteger row = indexPath.row;
     
     if ([self.beaconInfo count] == 0) {
         if (row == 0) {
@@ -119,6 +120,23 @@
     return cell;
 }
 
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([sender isKindOfClass:[UITableViewCell class]]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        
+        if (indexPath){
+            if ([segue.identifier isEqualToString:@"beacon details"]) {
+                if ([segue.destinationViewController isKindOfClass:[beaconReader class]]) {
+                    
+                    CLBeacon *beacon = [[self.beaconManager beaconsInRegion]objectAtIndex:indexPath.row];
+                    [segue.destinationViewController setBeaconDetails:beacon];
+                }
+            }
+        }
+    }
+}
 
 /*
 // Override to support conditional editing of the table view.

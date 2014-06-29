@@ -9,13 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface beaconReader : UIViewController <CLLocationManagerDelegate>
+@interface beaconReader : UITableViewController <CLLocationManagerDelegate>
 
-- (void)initRegion;
-
+- (void)setBeaconDetails:(CLBeacon*)beacon;
 
 @end
-
-#define kBeaconStationUUID @"E2C56DB5-DFFB-48D2-B060-D0F5A71096E0"
-#define kID @"com.my.AirLocate"
-#define kPower @-59

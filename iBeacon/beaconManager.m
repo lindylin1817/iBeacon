@@ -94,16 +94,9 @@
 -(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region {
     
     NSLog(@"did range beacons");
-    CLBeacon *beacon = [[CLBeacon alloc] init];
     
-    /*for (beacon in beacons) {
-        [self.beaconsInRegion addObject:beacon];
-        NSLog(@"%@", beacon);
-    }*/
+    self.beaconsInRegion = (NSMutableArray *)beacons;
     
-    self.beaconsInRegion = beacons;
-    
-    //beacon = [beacons lastObject];
     NSNotification *notification = [NSNotification notificationWithName:@"beacons" object:nil];
     
     [[NSNotificationCenter defaultCenter]postNotification:notification];
@@ -112,17 +105,20 @@
 
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
     
-    UILocalNotification *notification = [[UILocalNotification alloc]init];
+    //UILocalNotification *notification = [[UILocalNotification alloc]init];
     
     if (state == CLRegionStateInside) {
-        notification.alertBody = @"You are in Region";
+        //notification.alertBody = @"You are in Region";
+        NSLog(@"You are in region");
     } else if (state == CLRegionStateOutside) {
-        notification.alertBody = @"You are out of Region";
+        //notification.alertBody = @"You are out of Region";
+        NSLog(@"You are out of region");
     } else {
         return;
     }
-    [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+    //[[UIApplication sharedApplication] presentLocalNotificationNow:notification];
 }
+
 
 
 @end
