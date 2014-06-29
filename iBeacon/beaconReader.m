@@ -9,16 +9,7 @@
 #import "beaconReader.h"
 
 @interface beaconReader ()
-@property (weak, nonatomic) IBOutlet UILabel *beaconFoundLabel;
-@property (weak, nonatomic) IBOutlet UILabel *proximityUUIDLabel;
-@property (weak, nonatomic) IBOutlet UILabel *majorLabel;
-@property (weak, nonatomic) IBOutlet UILabel *minorLabel;
-@property (weak, nonatomic) IBOutlet UILabel *accuracyLabel;
-@property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *rssiLabel;
 
-@property (strong, nonatomic) CLBeaconRegion *beaconRegion;
-@property (strong, nonatomic) CLLocationManager *locationManager;
 
 @end
 
@@ -33,11 +24,12 @@
 }
 
 - (void)initRegion {
+    NSLog(@"In initRegion of beaconReader");
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"E2C56DB5-DFFB-48D2-B060-D0F5A71096E0"];
     //self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:nil identifier:nil];
     self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:@"Apple AirLocate E2C56DB5"];
     [self.locationManager startMonitoringForRegion:self.beaconRegion];
-    self.beaconFoundLabel.text = @"init region success";
+
     //NSLog(@"init region");
     
 }
@@ -58,6 +50,8 @@
 -(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region {
     CLBeacon *beacon = [[CLBeacon alloc] init];
     beacon = [beacons lastObject];
+    
+    NSLog(@"in LocationManager didRangeBeacons");
     
     //self.beaconFoundLabel.text = @"Yes";
     self.proximityUUIDLabel.text = beacon.proximityUUID.UUIDString;
@@ -85,6 +79,7 @@
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
     [self initRegion];
+    self.beaconFoundLabel.text = @"init region success";
     [self locationManager:self.locationManager didStartMonitoringForRegion:self.beaconRegion];
 }
 
