@@ -9,9 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface beaconReader : UIViewController <CLLocationManagerDelegate>
+@interface beaconReader : UITableViewController <CLLocationManagerDelegate>
 
-- (void)initRegion;
-
+- (void)setBeaconDetails:(CLBeacon*)beacon;
 
 @end
