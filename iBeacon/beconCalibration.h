@@ -4,7 +4,7 @@
 //
 //  Created by Yonghua Lin on 28/6/14.
 //  Copyright (c) 2014 dastone. All rights reserved.
-//
+//  Yonghua Lin
 
 #import <Foundation/Foundation.h>
 
