@@ -25,5 +25,9 @@
     
 }
 
+- (IBAction)TouchCaliButton:(UIButton *)sender {
+    NSLog(@"I tounch the button");
+}
+
 
 @end
