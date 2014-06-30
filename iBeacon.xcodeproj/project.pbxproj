@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		269E017A194AF8F80053653D /* beaconTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 269E0179194AF8F80053653D /* beaconTableViewController.m */; };
+		269E017D194AFB070053653D /* beaconManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 269E017C194AFB070053653D /* beaconManager.m */; };
 		26AD4F4B1941A83600C2045D /* beaconReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 26AD4F4A1941A83600C2045D /* beaconReader.m */; };
 		26AD4F4E1941A85500C2045D /* beaconStation.m in Sources */ = {isa = PBXBuildFile; fileRef = 26AD4F4D1941A85500C2045D /* beaconStation.m */; };
 		26ADA6C119348D3400686C25 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26ADA6C019348D3300686C25 /* Foundation.framework */; };
@@ -25,7 +27,7 @@
 		26ADA6EC19348D3400686C25 /* iBeaconTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 26ADA6EB19348D3400686C25 /* iBeaconTests.m */; };
 		26ADA6F6193493CA00686C25 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26ADA6F5193493CA00686C25 /* CoreLocation.framework */; };
 		26ADA6F81934940500686C25 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26ADA6F71934940500686C25 /* CoreBluetooth.framework */; };
-		47E26A3D195FA4B000124BF0 /* beaconCalibrate.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E26A3C195FA4B000124BF0 /* beaconCalibrate.m */; };
+		26F888B01961BDFA0019ED3F /* beaconCalibrate.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F888AF1961BDFA0019ED3F /* beaconCalibrate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +41,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		269E0178194AF8F80053653D /* beaconTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beaconTableViewController.h; sourceTree = "<group>"; };
+		269E0179194AF8F80053653D /* beaconTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beaconTableViewController.m; sourceTree = "<group>"; };
+		269E017B194AFB070053653D /* beaconManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beaconManager.h; sourceTree = "<group>"; };
+		269E017C194AFB070053653D /* beaconManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beaconManager.m; sourceTree = "<group>"; };
 		26AD4F491941A83600C2045D /* beaconReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beaconReader.h; sourceTree = "<group>"; };
 		26AD4F4A1941A83600C2045D /* beaconReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beaconReader.m; sourceTree = "<group>"; };
 		26AD4F4C1941A85500C2045D /* beaconStation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beaconStation.h; sourceTree = "<group>"; };
@@ -64,8 +70,8 @@
 		26ADA6EB19348D3400686C25 /* iBeaconTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iBeaconTests.m; sourceTree = "<group>"; };
 		26ADA6F5193493CA00686C25 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		26ADA6F71934940500686C25 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
-		47E26A3B195FA4B000124BF0 /* beaconCalibrate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beaconCalibrate.h; sourceTree = "<group>"; };
-		47E26A3C195FA4B000124BF0 /* beaconCalibrate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beaconCalibrate.m; sourceTree = "<group>"; };
+		26F888AE1961BDFA0019ED3F /* beaconCalibrate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beaconCalibrate.h; sourceTree = "<group>"; };
+		26F888AF1961BDFA0019ED3F /* beaconCalibrate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beaconCalibrate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,8 +135,17 @@
 		26ADA6C619348D3400686C25 /* iBeacon */ = {
 			isa = PBXGroup;
 			children = (
-				47E26A34195F180200124BF0 /* Model */,
+				26F888AE1961BDFA0019ED3F /* beaconCalibrate.h */,
+				26F888AF1961BDFA0019ED3F /* beaconCalibrate.m */,
 				26ADA6D219348D3400686C25 /* Main.storyboard */,
+				269E017B194AFB070053653D /* beaconManager.h */,
+				269E017C194AFB070053653D /* beaconManager.m */,
+				269E0178194AF8F80053653D /* beaconTableViewController.h */,
+				269E0179194AF8F80053653D /* beaconTableViewController.m */,
+				26AD4F491941A83600C2045D /* beaconReader.h */,
+				26AD4F4A1941A83600C2045D /* beaconReader.m */,
+				26AD4F4C1941A85500C2045D /* beaconStation.h */,
+				26AD4F4D1941A85500C2045D /* beaconStation.m */,
 				26ADA6D519348D3400686C25 /* ViewController.h */,
 				26ADA6D619348D3400686C25 /* ViewController.m */,
 				26ADA6D819348D3400686C25 /* Images.xcassets */,
@@ -168,19 +183,6 @@
 				26ADA6E819348D3400686C25 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		47E26A34195F180200124BF0 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				47E26A3B195FA4B000124BF0 /* beaconCalibrate.h */,
-				47E26A3C195FA4B000124BF0 /* beaconCalibrate.m */,
-				26AD4F4D1941A85500C2045D /* beaconStation.m */,
-				26AD4F4C1941A85500C2045D /* beaconStation.h */,
-				26AD4F4A1941A83600C2045D /* beaconReader.m */,
-				26AD4F491941A83600C2045D /* beaconReader.h */,
-			);
-			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,10 +284,12 @@
 			files = (
 				26AD4F4B1941A83600C2045D /* beaconReader.m in Sources */,
 				26ADA6D719348D3400686C25 /* ViewController.m in Sources */,
+				269E017D194AFB070053653D /* beaconManager.m in Sources */,
+				26F888B01961BDFA0019ED3F /* beaconCalibrate.m in Sources */,
 				26ADA6D119348D3400686C25 /* AppDelegate.m in Sources */,
+				269E017A194AF8F80053653D /* beaconTableViewController.m in Sources */,
 				26ADA6CD19348D3400686C25 /* main.m in Sources */,
 				26AD4F4E1941A85500C2045D /* beaconStation.m in Sources */,
-				47E26A3D195FA4B000124BF0 /* beaconCalibrate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

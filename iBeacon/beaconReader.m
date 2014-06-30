@@ -10,64 +10,83 @@
 
 @interface beaconReader ()
 
+@property (strong, nonatomic)NSArray        *beaconDetailsTitle;
+@property (strong, nonatomic)NSMutableArray *beaconDetailsValue;
 
 @end
 
 @implementation beaconReader
 
-@synthesize beaconRegion = _beaconRegion;
-@synthesize locationManager = _locationManager;
+@synthesize beaconDetailsTitle = _beaconDetailsTitle;
+@synthesize beaconDetailsValue = _beaconDetailsValue;
 
 
-- (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
-    [self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
-}
 
-- (void)initRegion {
-    NSLog(@"In initRegion of beaconReader");
-    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"E2C56DB5-DFFB-48D2-B060-D0F5A71096E0"];
-    //self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:nil identifier:nil];
-    self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:@"Apple AirLocate E2C56DB5"];
-    [self.locationManager startMonitoringForRegion:self.beaconRegion];
-
-    //NSLog(@"init region");
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+#warning Potentially incomplete method implementation.
+    // Return the number of sections.
+    /*self.beaconInfo = [self.beaconManager getBeaconsInfo];
+     
+     return [self.beaconInfo count];*/
     
+    return 1;
 }
 
-- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
-    NSLog(@"did enter region");
-    self.beaconFoundLabel.text = @"did enter region";
-    [self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+#warning Incomplete method implementation.
+    // Return the number of rows in the section.
+    return [self.beaconDetailsTitle count];
 }
 
--(void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
-    NSLog(@"did exit region");
-    self.beaconFoundLabel.text = @"did exit success";
-    [self.locationManager stopRangingBeaconsInRegion:self.beaconRegion];
-    //self.beaconFoundLabel.text = @"No";
-}
 
--(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region {
-    CLBeacon *beacon = [[CLBeacon alloc] init];
-    beacon = [beacons lastObject];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"beacon details cell" forIndexPath:indexPath];
     
-    NSLog(@"in LocationManager didRangeBeacons");
+    // Configure the cell...
     
-    //self.beaconFoundLabel.text = @"Yes";
-    self.proximityUUIDLabel.text = beacon.proximityUUID.UUIDString;
-    self.majorLabel.text = [NSString stringWithFormat:@"%@", beacon.major];
-    self.minorLabel.text = [NSString stringWithFormat:@"%@", beacon.minor];
-    self.accuracyLabel.text = [NSString stringWithFormat:@"%f", beacon.accuracy];
-    if (beacon.proximity == CLProximityUnknown) {
-        self.distanceLabel.text = @"Unknown Proximity";
-    } else if (beacon.proximity == CLProximityImmediate) {
-        self.distanceLabel.text = @"Immediate";
-    } else if (beacon.proximity == CLProximityNear) {
-        self.distanceLabel.text = @"Near";
-    } else if (beacon.proximity == CLProximityFar) {
-        self.distanceLabel.text = @"Far";
+    NSInteger row = indexPath.row;
+    
+    cell.textLabel.text = [self.beaconDetailsTitle objectAtIndex:row];
+    cell.detailTextLabel.text = [self.beaconDetailsValue objectAtIndex:row];
+    
+    return cell;
+}
+
+- (void)setBeaconDetails:(CLBeacon*)beacon {
+
+    if (!_beaconDetailsTitle) {
+        _beaconDetailsTitle = [NSArray arrayWithObjects:@"UUID", @"major", @"minor", @"distance", @"rssi", nil];
     }
-    self.rssiLabel.text = [NSString stringWithFormat:@"%i", beacon.rssi];
+    
+    if (!_beaconDetailsValue) {
+        _beaconDetailsValue = [[NSMutableArray alloc]init];
+    }
+
+    NSString *major = [[NSString alloc]initWithFormat:@"%@", beacon.major];
+    NSString *minor = [[NSString alloc]initWithFormat:@"%@", beacon.minor];
+    
+    NSString *distance = [[NSString alloc]init];
+    if (beacon.proximity == CLProximityUnknown) {
+        distance = @"Unknow proximity";
+    } else if (beacon.proximity == CLProximityImmediate) {
+        distance = @"Immediate";
+    } else if (beacon.proximity == CLProximityNear) {
+        distance = @"Near";
+    } else if (beacon.proximity == CLProximityFar) {
+        distance = @"Far";
+    }
+    
+    NSString *rssi = [[NSString alloc]initWithFormat:@"%li", beacon.rssi];
+    
+    [self.beaconDetailsValue addObject:beacon.proximityUUID.UUIDString];
+    [self.beaconDetailsValue addObject:major];
+    [self.beaconDetailsValue addObject:minor];
+    [self.beaconDetailsValue addObject:distance];
+    [self.beaconDetailsValue addObject:rssi];
+    
 }
 
 
@@ -76,17 +95,17 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
-    [self initRegion];
-    self.beaconFoundLabel.text = @"init region success";
-    [self locationManager:self.locationManager didStartMonitoringForRegion:self.beaconRegion];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:YES];
+    
 }
 
 

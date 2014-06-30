@@ -7,13 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "beaconCalibrate.h"
-
-@class beaconCalibrate;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) IBOutlet beaconCalibrate *mybeaconCalibrate;
 
 @end
