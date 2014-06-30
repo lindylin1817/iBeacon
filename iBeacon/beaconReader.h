@@ -1,5 +1,5 @@
 //
-//  beaconStation.h
+//  beaconReader.h
 //  iBeacon
 //
 //  Created by ShaoLing on 6/6/14.
@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import <CoreBluetooth/CoreBluetooth.h>
 
-@interface beaconStation : UIViewController <CBPeripheralManagerDelegate>
+@interface beaconReader : UIViewController <CLLocationManagerDelegate>
 
-- (void)initPublishBeacon;
+- (void)initRegion;
+
 
 @end
