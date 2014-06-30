@@ -242,7 +242,6 @@
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Calibration" backgroundImage="blankbutton"/>
                                 <connections>
-                                    <action selector="TouchCaliButton:" destination="YHK-VR-SNE" eventType="touchUpInside" id="0Fb-Ig-hoG"/>
                                     <segue destination="gRR-Bu-Wqx" kind="push" id="XhJ-5D-uvV"/>
                                 </connections>
                             </button>
