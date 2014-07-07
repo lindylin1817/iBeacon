@@ -17,7 +17,6 @@
 		26ADA6CB19348D3400686C25 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 26ADA6C919348D3400686C25 /* InfoPlist.strings */; };
 		26ADA6CD19348D3400686C25 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 26ADA6CC19348D3400686C25 /* main.m */; };
 		26ADA6D119348D3400686C25 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 26ADA6D019348D3400686C25 /* AppDelegate.m */; };
-		26ADA6D419348D3400686C25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26ADA6D219348D3400686C25 /* Main.storyboard */; };
 		26ADA6D719348D3400686C25 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26ADA6D619348D3400686C25 /* ViewController.m */; };
 		26ADA6D919348D3400686C25 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26ADA6D819348D3400686C25 /* Images.xcassets */; };
 		26ADA6E019348D3400686C25 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26ADA6DF19348D3400686C25 /* XCTest.framework */; };
@@ -28,6 +27,10 @@
 		26ADA6F6193493CA00686C25 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26ADA6F5193493CA00686C25 /* CoreLocation.framework */; };
 		26ADA6F81934940500686C25 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26ADA6F71934940500686C25 /* CoreBluetooth.framework */; };
 		26F888B01961BDFA0019ED3F /* beaconCalibrate.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F888AF1961BDFA0019ED3F /* beaconCalibrate.m */; };
+		47A0848A196417AB00E6A8BC /* beaconDBAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A08489196417AB00E6A8BC /* beaconDBAction.m */; };
+		47A0848D19655DCB00E6A8BC /* beaconInfoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A0848C19655DCB00E6A8BC /* beaconInfoData.m */; };
+		47A139FA196AD1FD00CEC495 /* beaconDistanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A139F9196AD1FD00CEC495 /* beaconDistanceViewController.m */; };
+		47A139FD196AD97C00CEC495 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47A139FB196AD97C00CEC495 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,7 +62,6 @@
 		26ADA6CE19348D3400686C25 /* iBeacon-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iBeacon-Prefix.pch"; sourceTree = "<group>"; };
 		26ADA6CF19348D3400686C25 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		26ADA6D019348D3400686C25 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		26ADA6D319348D3400686C25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		26ADA6D519348D3400686C25 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		26ADA6D619348D3400686C25 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		26ADA6D819348D3400686C25 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -72,6 +74,13 @@
 		26ADA6F71934940500686C25 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		26F888AE1961BDFA0019ED3F /* beaconCalibrate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beaconCalibrate.h; sourceTree = "<group>"; };
 		26F888AF1961BDFA0019ED3F /* beaconCalibrate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beaconCalibrate.m; sourceTree = "<group>"; };
+		47A08488196417AB00E6A8BC /* beaconDBAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beaconDBAction.h; sourceTree = "<group>"; };
+		47A08489196417AB00E6A8BC /* beaconDBAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beaconDBAction.m; sourceTree = "<group>"; };
+		47A0848B19655DCB00E6A8BC /* beaconInfoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beaconInfoData.h; sourceTree = "<group>"; };
+		47A0848C19655DCB00E6A8BC /* beaconInfoData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beaconInfoData.m; sourceTree = "<group>"; };
+		47A139F8196AD1FD00CEC495 /* beaconDistanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beaconDistanceViewController.h; sourceTree = "<group>"; };
+		47A139F9196AD1FD00CEC495 /* beaconDistanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beaconDistanceViewController.m; sourceTree = "<group>"; };
+		47A139FC196AD97C00CEC495 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,9 +144,11 @@
 		26ADA6C619348D3400686C25 /* iBeacon */ = {
 			isa = PBXGroup;
 			children = (
+				47A139FB196AD97C00CEC495 /* Main.storyboard */,
 				26F888AE1961BDFA0019ED3F /* beaconCalibrate.h */,
 				26F888AF1961BDFA0019ED3F /* beaconCalibrate.m */,
-				26ADA6D219348D3400686C25 /* Main.storyboard */,
+				47A139F8196AD1FD00CEC495 /* beaconDistanceViewController.h */,
+				47A139F9196AD1FD00CEC495 /* beaconDistanceViewController.m */,
 				269E017B194AFB070053653D /* beaconManager.h */,
 				269E017C194AFB070053653D /* beaconManager.m */,
 				269E0178194AF8F80053653D /* beaconTableViewController.h */,
@@ -150,6 +161,10 @@
 				26ADA6D619348D3400686C25 /* ViewController.m */,
 				26ADA6D819348D3400686C25 /* Images.xcassets */,
 				26ADA6C719348D3400686C25 /* Supporting Files */,
+				47A08488196417AB00E6A8BC /* beaconDBAction.h */,
+				47A0848B19655DCB00E6A8BC /* beaconInfoData.h */,
+				47A0848C19655DCB00E6A8BC /* beaconInfoData.m */,
+				47A08489196417AB00E6A8BC /* beaconDBAction.m */,
 			);
 			path = iBeacon;
 			sourceTree = "<group>";
@@ -261,9 +276,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47A139FD196AD97C00CEC495 /* Main.storyboard in Resources */,
 				26ADA6D919348D3400686C25 /* Images.xcassets in Resources */,
 				26ADA6CB19348D3400686C25 /* InfoPlist.strings in Resources */,
-				26ADA6D419348D3400686C25 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,10 +301,13 @@
 				26ADA6D719348D3400686C25 /* ViewController.m in Sources */,
 				269E017D194AFB070053653D /* beaconManager.m in Sources */,
 				26F888B01961BDFA0019ED3F /* beaconCalibrate.m in Sources */,
+				47A139FA196AD1FD00CEC495 /* beaconDistanceViewController.m in Sources */,
+				47A0848A196417AB00E6A8BC /* beaconDBAction.m in Sources */,
 				26ADA6D119348D3400686C25 /* AppDelegate.m in Sources */,
 				269E017A194AF8F80053653D /* beaconTableViewController.m in Sources */,
 				26ADA6CD19348D3400686C25 /* main.m in Sources */,
 				26AD4F4E1941A85500C2045D /* beaconStation.m in Sources */,
+				47A0848D19655DCB00E6A8BC /* beaconInfoData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,20 +338,20 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		26ADA6D219348D3400686C25 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				26ADA6D319348D3400686C25 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		26ADA6E819348D3400686C25 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				26ADA6E919348D3400686C25 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		47A139FB196AD97C00CEC495 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				47A139FC196AD97C00CEC495 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

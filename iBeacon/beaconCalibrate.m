@@ -8,6 +8,7 @@
 
 #import "beaconCalibrate.h"
 #import "beaconReader.h"
+#import "beaconDBAction.h"
 
 @interface beaconCalibrate ()
 
@@ -33,6 +34,10 @@ UILabel *current_distance_label;
 UILabel *current_rssi_label;
 UILabel *current_flag_label;
 
+bool isInitScan;
+
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -46,6 +51,8 @@ UILabel *current_flag_label;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self->beaconInfo = [[beaconInfoData alloc] init];
     
     distance_array = [NSArray arrayWithObjects:self.distanceLable1,
                       self.distanceLable2, self.distanceLable3,
@@ -66,9 +73,9 @@ UILabel *current_flag_label;
  
     for (i = 0; i<max_distance_times; i++){
         temp_label = [distance_array objectAtIndex:i];
-        temp_label.text = nil;
+        temp_label.text = @"0";
         temp_label = [rssi_array objectAtIndex:i];
-        temp_label.text = nil;
+        temp_label.text = @"0";
         temp_label = [flag_array objectAtIndex:i];
         temp_label.text = nil;
     }
@@ -81,7 +88,8 @@ UILabel *current_flag_label;
     self.finishButton.hidden = NO;
     [self.activityIndicator stopAnimating];
     self.activityIndicator.hidden = YES;
-    self.uuidLabel.text = @"None";
+    self.startButton.enabled = NO;
+    self.uuidLabel.text = nil;
     
     NSLog(@"aa");
     
@@ -92,6 +100,14 @@ UILabel *current_flag_label;
     self.locationManager.delegate = self;
     NSLog(@"aa2");
 
+    //To do the initScan
+    isInitScan = true;
+    [self initRegion];
+    [self locationManager:self.locationManager didStartMonitoringForRegion:self.beaconRegion];
+    
+    
+    self.startButton.enabled = NO;
+    
     
     [self.distanceSlider addTarget:self action:@selector(sliderValueChanged) forControlEvents:UIControlEventValueChanged];
     
@@ -100,6 +116,36 @@ UILabel *current_flag_label;
     
 }
 
+- (IBAction)CalibrationFinish:(UIButton *)sender {
+    
+   
+    UILabel *distance_label, *rssi_label;
+    
+    for (unsigned int i = 0; i < max_distance_times; i++) {
+        NSLog(@"i = %d ", i);
+
+        distance_label = [distance_array objectAtIndex:i];
+        rssi_label = [rssi_array objectAtIndex:i];
+        [self->beaconInfo->beaconMetrics addObject: [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:distance_label.text, rssi_label.text, nil]forKeys: [NSArray arrayWithObjects:@"distance", @"rssi", nil]]];
+    }
+    NSLog(@"%@", self->beaconInfo->beaconMetrics);
+    
+    NSData *beacon_info_json = [beaconDBAction buildJSONBeaconDB:self->beaconInfo];
+    NSError *error = [beaconDBAction addBeaconwithCalibrateInfo:beacon_info_json];
+    
+    UIAlertView *alert = [UIAlertView alloc];
+    if (error){
+        NSLog(@"Upload data failed: %@", [error localizedDescription]);
+        [alert initWithTitle:@"Data upload failed" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    } else {
+        [alert initWithTitle:@"Data upload success!" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    }
+    [alert show];
+    //To remove all objects in the beaconMetrics after the "finish"
+    [self->beaconInfo->beaconMetrics removeAllObjects];
+    
+    return;
+}
 
 - (IBAction)CalibrationStart:(UIButton *)sender {
     NSLog(@"Start button");
@@ -111,12 +157,13 @@ UILabel *current_flag_label;
 
     current_rssi_label = [rssi_array objectAtIndex:distance_count];
     current_flag_label = [flag_array objectAtIndex:distance_count];
+        
+    self.startButton.enabled = NO;
+    self.finishButton.enabled = NO;
     
     [self initRegion];
     [self locationManager:self.locationManager didStartMonitoringForRegion:self.beaconRegion];
-    
-    self.startButton.enabled = NO;
-    self.finishButton.enabled = NO;
+
     
     [self.activityIndicator startAnimating];
 }
@@ -162,7 +209,51 @@ UILabel *current_flag_label;
     NSLog(@"in LocationManager didRangeBeacons");
 
     self.uuidLabel.text = beacon.proximityUUID.UUIDString;
-    current_rssi_label.text = [NSString stringWithFormat:@"%i", beacon.rssi];
+  //  NSLog(@"%@", self.uuidLabel.text);
+    if (isInitScan && self.uuidLabel.text) {
+        self->beaconInfo->uuid = beacon.proximityUUID.UUIDString;
+        
+        NSMutableString *hexString_major_32 = [NSMutableString stringWithCapacity:4];
+       
+        
+        NSString *hexString_major = [NSString stringWithFormat:@"%@",[[NSString alloc] initWithFormat:@"%X",(unsigned int)beacon.major]];
+        
+        for (int i = 0; i < 4 - [hexString_major length]; i++) {
+            [hexString_major_32 appendString:@"0"];
+        }
+        
+        [hexString_major_32 appendString:hexString_major];
+        self->beaconInfo->major = hexString_major_32;
+        
+        NSLog(@"%@", hexString_major_32);
+        
+        NSMutableString *hexString_minor_32 = [NSMutableString stringWithCapacity:4];
+        
+        NSString *hexString_minor = [NSString stringWithFormat:@"%@",[[NSString alloc] initWithFormat:@"%X",(unsigned int)beacon.minor]];
+        
+        for (int i = 0; i < 4 - [hexString_minor length]; i++) {
+            [hexString_minor_32 appendString:@"0"];
+        }
+        
+        [hexString_minor_32 appendString:hexString_minor];
+        self->beaconInfo->minor = hexString_minor_32;
+        NSLog(@"%@", hexString_minor_32);
+        
+        self->beaconInfo->beaconID = [[self->beaconInfo->uuid stringByAppendingString:self->beaconInfo->major] stringByAppendingString:self->beaconInfo->minor];
+        
+        NSLog(@"to send link");
+         if ([beaconDBAction checkCalibrated : self->beaconInfo]){
+         self.checkCalibrateLabel.text = @"This beacon has been calibrated";
+         } else {
+         self.checkCalibrateLabel.text = @"This beacon hasn't been calibrated";
+         }
+        isInitScan = false;
+        self.startButton.enabled = YES; //Finish initial scan, wait for calibration start
+        [self.locationManager stopRangingBeaconsInRegion:self.beaconRegion];
+    } else if (!isInitScan) {
+         current_rssi_label.text = [NSString stringWithFormat:@"%i", beacon.rssi];
+    }
+   
     
 
     measure_count++;
@@ -183,7 +274,9 @@ UILabel *current_flag_label;
         } else {
             current_flag_label.textColor = [UIColor greenColor];
         }
+        
         current_rssi_label.text = [NSString stringWithFormat:@"%i", rssi_sum/max_measure_success_times];
+
 
 
         

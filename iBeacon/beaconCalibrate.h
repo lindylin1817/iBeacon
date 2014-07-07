@@ -9,12 +9,18 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import "beaconInfoData.h"
 
-@interface beaconCalibrate : UIViewController <CLLocationManagerDelegate>
+@interface beaconCalibrate : UIViewController <CLLocationManagerDelegate>{
+    @public beaconInfoData *beaconInfo;
+}
 
 - (void)initRegion;
 
+
+
 @property (nonatomic, retain) IBOutlet UILabel *uuidLabel;
+@property (nonatomic, retain) IBOutlet UILabel *checkCalibrateLabel;
 @property (nonatomic, retain) IBOutlet UILabel *distanceLable1;
 @property (nonatomic, retain) IBOutlet UILabel *rssiLable1;
 @property (nonatomic, retain) IBOutlet UILabel *distanceLable2;
