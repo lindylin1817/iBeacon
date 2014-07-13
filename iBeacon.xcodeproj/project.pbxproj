@@ -29,8 +29,11 @@
 		26F888B01961BDFA0019ED3F /* beaconCalibrate.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F888AF1961BDFA0019ED3F /* beaconCalibrate.m */; };
 		47A0848A196417AB00E6A8BC /* beaconDBAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A08489196417AB00E6A8BC /* beaconDBAction.m */; };
 		47A0848D19655DCB00E6A8BC /* beaconInfoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A0848C19655DCB00E6A8BC /* beaconInfoData.m */; };
-		47A139FA196AD1FD00CEC495 /* beaconDistanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A139F9196AD1FD00CEC495 /* beaconDistanceViewController.m */; };
 		47A139FD196AD97C00CEC495 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47A139FB196AD97C00CEC495 /* Main.storyboard */; };
+		47A13A00196AEE6400CEC495 /* beaconDistanceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A139FF196AEE6400CEC495 /* beaconDistanceTableViewController.m */; };
+		47A13A02196E07ED00CEC495 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 47A13A01196E07ED00CEC495 /* libsqlite3.dylib */; };
+		47B5F5C61972195B009581EB /* beaconLocalArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B5F5C51972195B009581EB /* beaconLocalArchive.m */; };
+		47B5F5C91972D5DB009581EB /* beaconDistance.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B5F5C81972D5DB009581EB /* beaconDistance.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,9 +81,14 @@
 		47A08489196417AB00E6A8BC /* beaconDBAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beaconDBAction.m; sourceTree = "<group>"; };
 		47A0848B19655DCB00E6A8BC /* beaconInfoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beaconInfoData.h; sourceTree = "<group>"; };
 		47A0848C19655DCB00E6A8BC /* beaconInfoData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beaconInfoData.m; sourceTree = "<group>"; };
-		47A139F8196AD1FD00CEC495 /* beaconDistanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beaconDistanceViewController.h; sourceTree = "<group>"; };
-		47A139F9196AD1FD00CEC495 /* beaconDistanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beaconDistanceViewController.m; sourceTree = "<group>"; };
 		47A139FC196AD97C00CEC495 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		47A139FE196AEE6400CEC495 /* beaconDistanceTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beaconDistanceTableViewController.h; sourceTree = "<group>"; };
+		47A139FF196AEE6400CEC495 /* beaconDistanceTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beaconDistanceTableViewController.m; sourceTree = "<group>"; };
+		47A13A01196E07ED00CEC495 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		47B5F5C41972195B009581EB /* beaconLocalArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beaconLocalArchive.h; sourceTree = "<group>"; };
+		47B5F5C51972195B009581EB /* beaconLocalArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beaconLocalArchive.m; sourceTree = "<group>"; };
+		47B5F5C71972D5DB009581EB /* beaconDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beaconDistance.h; sourceTree = "<group>"; };
+		47B5F5C81972D5DB009581EB /* beaconDistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beaconDistance.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47A13A02196E07ED00CEC495 /* libsqlite3.dylib in Frameworks */,
 				26ADA6F81934940500686C25 /* CoreBluetooth.framework in Frameworks */,
 				26ADA6F6193493CA00686C25 /* CoreLocation.framework in Frameworks */,
 				26ADA6C319348D3400686C25 /* CoreGraphics.framework in Frameworks */,
@@ -131,6 +140,7 @@
 		26ADA6BF19348D3300686C25 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				47A13A01196E07ED00CEC495 /* libsqlite3.dylib */,
 				26ADA6F71934940500686C25 /* CoreBluetooth.framework */,
 				26ADA6F5193493CA00686C25 /* CoreLocation.framework */,
 				26ADA6C019348D3300686C25 /* Foundation.framework */,
@@ -144,11 +154,13 @@
 		26ADA6C619348D3400686C25 /* iBeacon */ = {
 			isa = PBXGroup;
 			children = (
+				47A139FE196AEE6400CEC495 /* beaconDistanceTableViewController.h */,
+				47A139FF196AEE6400CEC495 /* beaconDistanceTableViewController.m */,
+				47B5F5C71972D5DB009581EB /* beaconDistance.h */,
+				47B5F5C81972D5DB009581EB /* beaconDistance.m */,
 				47A139FB196AD97C00CEC495 /* Main.storyboard */,
 				26F888AE1961BDFA0019ED3F /* beaconCalibrate.h */,
 				26F888AF1961BDFA0019ED3F /* beaconCalibrate.m */,
-				47A139F8196AD1FD00CEC495 /* beaconDistanceViewController.h */,
-				47A139F9196AD1FD00CEC495 /* beaconDistanceViewController.m */,
 				269E017B194AFB070053653D /* beaconManager.h */,
 				269E017C194AFB070053653D /* beaconManager.m */,
 				269E0178194AF8F80053653D /* beaconTableViewController.h */,
@@ -165,6 +177,8 @@
 				47A0848B19655DCB00E6A8BC /* beaconInfoData.h */,
 				47A0848C19655DCB00E6A8BC /* beaconInfoData.m */,
 				47A08489196417AB00E6A8BC /* beaconDBAction.m */,
+				47B5F5C41972195B009581EB /* beaconLocalArchive.h */,
+				47B5F5C51972195B009581EB /* beaconLocalArchive.m */,
 			);
 			path = iBeacon;
 			sourceTree = "<group>";
@@ -297,11 +311,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47B5F5C61972195B009581EB /* beaconLocalArchive.m in Sources */,
+				47A13A00196AEE6400CEC495 /* beaconDistanceTableViewController.m in Sources */,
 				26AD4F4B1941A83600C2045D /* beaconReader.m in Sources */,
 				26ADA6D719348D3400686C25 /* ViewController.m in Sources */,
+				47B5F5C91972D5DB009581EB /* beaconDistance.m in Sources */,
 				269E017D194AFB070053653D /* beaconManager.m in Sources */,
 				26F888B01961BDFA0019ED3F /* beaconCalibrate.m in Sources */,
-				47A139FA196AD1FD00CEC495 /* beaconDistanceViewController.m in Sources */,
 				47A0848A196417AB00E6A8BC /* beaconDBAction.m in Sources */,
 				26ADA6D119348D3400686C25 /* AppDelegate.m in Sources */,
 				269E017A194AF8F80053653D /* beaconTableViewController.m in Sources */,

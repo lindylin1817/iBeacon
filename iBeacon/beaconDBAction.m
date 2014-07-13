@@ -31,7 +31,7 @@ static NSString *updateCalibrateInfoURL = @"http://114.215.109.207:3000/updateCa
 + (NSString *)fetchCalibrateInfo: (beaconInfoData *)beacon_info{
     NSURL *req_url;
 
-    req_url= [NSURL URLWithString: [[checkCalibratedURL stringByAppendingString:beacon_info->beaconID] stringByAppendingString:@".json"]];
+    req_url= [NSURL URLWithString: [[checkCalibratedURL stringByAppendingString:beacon_info.beaconID] stringByAppendingString:@".json"]];
     NSLog(@"%@", req_url);
  //   req_url = [NSURL URLWithString: checkCalibratedURL];
     NSString *return_str = nil;
@@ -89,15 +89,15 @@ static NSString *updateCalibrateInfoURL = @"http://114.215.109.207:3000/updateCa
     
     NSDictionary *beacon_info = [beacon_json_dic objectForKey:@"beaconinfo"];
     
-    beacon_info_data->uuid = [beacon_info objectForKey:@"UUID"];
+    beacon_info_data.uuid = [beacon_info objectForKey:@"UUID"];
     
-    beacon_info_data->major = [beacon_info objectForKey:@"major"];
+    beacon_info_data.major = [beacon_info objectForKey:@"major"];
     
-    beacon_info_data->minor = [beacon_info objectForKey:@"minor"];
+    beacon_info_data.minor = [beacon_info objectForKey:@"minor"];
     
     NSArray *beacon_metrics = [beacon_info objectForKey:@"BeaconMetrics"];
     
-    [beacon_info_data->beaconMetrics setArray:beacon_metrics];
+    [beacon_info_data.beaconMetrics setArray:beacon_metrics];
     
     return beacon_info_data;
      
@@ -118,13 +118,13 @@ static NSString *updateCalibrateInfoURL = @"http://114.215.109.207:3000/updateCa
     //NSMutableDictionary *beacon_matrix_entry;
     
     //NSUInteger entry_count;
-    [beacon_info_dic setObject:beacon_info_data->beaconID forKey:@"beaconID"];
-    [beacon_info_dic setObject:beacon_info_data->uuid forKey:@"uuid"];
-    [beacon_info_dic setObject:beacon_info_data->major forKey:@"major"];
-    [beacon_info_dic setObject:beacon_info_data->minor forKey:@"minor"];
+    [beacon_info_dic setObject:beacon_info_data.beaconID forKey:@"beaconID"];
+    [beacon_info_dic setObject:beacon_info_data.uuid forKey:@"uuid"];
+    [beacon_info_dic setObject:beacon_info_data.major forKey:@"major"];
+    [beacon_info_dic setObject:beacon_info_data.minor forKey:@"minor"];
     NSLog(@"bb1");
     NSLog(@"beacon_info_dic: %@", beacon_info_dic);
-    [beacon_info_dic setObject:beacon_info_data->beaconMetrics forKey:@"BeaconMetrics"];
+    [beacon_info_dic setObject:beacon_info_data.beaconMetrics forKey:@"BeaconMetrics"];
     NSLog(@"bb2");
  
     beacon_info_json = [NSJSONSerialization dataWithJSONObject:beacon_info_dic options: NSJSONWritingPrettyPrinted  error:&error];
@@ -162,6 +162,7 @@ static NSString *updateCalibrateInfoURL = @"http://114.215.109.207:3000/updateCa
     [requestPOST setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [requestPOST setValue:@"application/json"forHTTPHeaderField:@"Content-Type"];
     [requestPOST setHTTPBody:beacon_info_json];
+    [requestPOST setTimeoutInterval:3];
     
     NSData *data=[NSURLConnection sendSynchronousRequest:requestPOST returningResponse:nil error:&error];
     NSString *dataContent = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];

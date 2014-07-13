@@ -7,8 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "sqlite3.h"
 
 
-@interface ViewController : UIViewController 
+@interface ViewController : UIViewController
+
+@property (assign, nonatomic)sqlite3 *beaconDB;
+
+- (void)openDB;
+- (void)createBeaconList;
+- (void)insertBeacon;
 
 @end

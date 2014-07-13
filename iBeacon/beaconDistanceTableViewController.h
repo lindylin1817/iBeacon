@@ -1,5 +1,5 @@
 //
-//  beaconDistanceViewController.h
+//  beaconDistanceTableViewController.h
 //  iBeacon
 //
 //  Created by Yonghua Lin on 7/7/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface beaconDistanceViewController : UIViewController
+@interface beaconDistanceTableViewController : UITableViewController
 
 @end

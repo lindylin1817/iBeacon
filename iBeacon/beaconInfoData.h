@@ -8,15 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-@interface beaconInfoData : NSObject{
-@public NSString *beaconID;
-@public NSString *uuid;
-@public NSString *major;
-@public NSString *minor;
-@public NSMutableArray *beaconMetrics;
+@interface beaconInfoData : NSObject<NSCoding, NSCopying>
+
+
+@property (nonatomic, retain) NSString *beaconID;
+@property (nonatomic, retain) NSString *uuid;
+@property (nonatomic, retain) NSString *major;
+@property (nonatomic, retain) NSString *minor;
+@property (nonatomic, retain) NSMutableArray *beaconMetrics;
     
 
-}
 
 //+(beaconInfoData *) alloc;
 

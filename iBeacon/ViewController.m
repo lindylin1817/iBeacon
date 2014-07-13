@@ -15,7 +15,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    NSString *mobileUUID;
+    
+    mobileUUID = [[NSProcessInfo processInfo] globallyUniqueString];
+    
+    NSLog(@"My UUID is %@", mobileUUID);
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    //To put the local DB operation here. To load the beaconInfo. from DB. 
+}
+
+- (NSString *)dbFilePath{
+    NSArray *dbPaths = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
+    NSString *dbDocPath = [dbPaths objectAtIndex:0];
+    NSString *dbFileName = [dbDocPath stringByAppendingPathComponent:@"data.db"];
+    NSLog(@"%@", dbFileName);
+    return dbFileName;
 }
 
 - (void)didReceiveMemoryWarning

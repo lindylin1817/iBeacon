@@ -9,6 +9,7 @@
 #import "beaconCalibrate.h"
 #import "beaconReader.h"
 #import "beaconDBAction.h"
+#import "beaconLocalArchive.h"
 
 @interface beaconCalibrate ()
 
@@ -35,6 +36,7 @@ UILabel *current_rssi_label;
 UILabel *current_flag_label;
 
 bool isInitScan;
+bool isCalibrating;
 
 
 
@@ -50,6 +52,7 @@ bool isInitScan;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSLog(@"1");
     // Do any additional setup after loading the view.
     
     self->beaconInfo = [[beaconInfoData alloc] init];
@@ -66,7 +69,7 @@ bool isInitScan;
                   self.flagLabel2, self.flagLabel3,
                   self.flagLabel4, self.flagLabel5,
                   nil];
-    
+    NSLog(@"11");
     int i = 0;
     UILabel *temp_label;
     distance_count = 0;
@@ -102,6 +105,8 @@ bool isInitScan;
 
     //To do the initScan
     isInitScan = true;
+    isCalibrating = false;
+    
     [self initRegion];
     [self locationManager:self.locationManager didStartMonitoringForRegion:self.beaconRegion];
     
@@ -126,9 +131,10 @@ bool isInitScan;
 
         distance_label = [distance_array objectAtIndex:i];
         rssi_label = [rssi_array objectAtIndex:i];
-        [self->beaconInfo->beaconMetrics addObject: [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:distance_label.text, rssi_label.text, nil]forKeys: [NSArray arrayWithObjects:@"distance", @"rssi", nil]]];
+        [self->beaconInfo.beaconMetrics addObject: [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:distance_label.text, rssi_label.text, nil]forKeys: [NSArray arrayWithObjects:@"distance", @"rssi", nil]]];
     }
-    NSLog(@"%@", self->beaconInfo->beaconMetrics);
+    NSLog(@"%@", self->beaconInfo.beaconMetrics);
+    
     
     NSData *beacon_info_json = [beaconDBAction buildJSONBeaconDB:self->beaconInfo];
     NSError *error = [beaconDBAction addBeaconwithCalibrateInfo:beacon_info_json];
@@ -141,14 +147,26 @@ bool isInitScan;
         [alert initWithTitle:@"Data upload success!" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     }
     [alert show];
+    
+    [beaconLocalArchive beaconInfoSave:beaconInfo error:error];
+    
+    if (error){
+        [alert initWithTitle:@"Save to local failed" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    } else {
+        [alert initWithTitle:@"Save to local success!" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    }
+    [alert show];
+    
+    
     //To remove all objects in the beaconMetrics after the "finish"
-    [self->beaconInfo->beaconMetrics removeAllObjects];
+    [self->beaconInfo.beaconMetrics removeAllObjects];
     
     return;
 }
 
 - (IBAction)CalibrationStart:(UIButton *)sender {
     NSLog(@"Start button");
+    
     
     
     rssi_sum = 0;
@@ -160,6 +178,8 @@ bool isInitScan;
         
     self.startButton.enabled = NO;
     self.finishButton.enabled = NO;
+    
+    isCalibrating = true;
     
     [self initRegion];
     [self locationManager:self.locationManager didStartMonitoringForRegion:self.beaconRegion];
@@ -211,7 +231,9 @@ bool isInitScan;
     self.uuidLabel.text = beacon.proximityUUID.UUIDString;
   //  NSLog(@"%@", self.uuidLabel.text);
     if (isInitScan && self.uuidLabel.text) {
-        self->beaconInfo->uuid = beacon.proximityUUID.UUIDString;
+        
+        NSLog(@"found the beacon : ", self.uuidLabel.text);
+        self->beaconInfo.uuid = beacon.proximityUUID.UUIDString;
         
         NSMutableString *hexString_major_32 = [NSMutableString stringWithCapacity:4];
        
@@ -223,7 +245,7 @@ bool isInitScan;
         }
         
         [hexString_major_32 appendString:hexString_major];
-        self->beaconInfo->major = hexString_major_32;
+        self->beaconInfo.major = hexString_major_32;
         
         NSLog(@"%@", hexString_major_32);
         
@@ -236,17 +258,19 @@ bool isInitScan;
         }
         
         [hexString_minor_32 appendString:hexString_minor];
-        self->beaconInfo->minor = hexString_minor_32;
+        self->beaconInfo.minor = hexString_minor_32;
         NSLog(@"%@", hexString_minor_32);
         
-        self->beaconInfo->beaconID = [[self->beaconInfo->uuid stringByAppendingString:self->beaconInfo->major] stringByAppendingString:self->beaconInfo->minor];
-        
-        NSLog(@"to send link");
+        self->beaconInfo.beaconID = [[self->beaconInfo.uuid stringByAppendingString:self->beaconInfo.major] stringByAppendingString:self->beaconInfo.minor];
+
+//to speed up the debug
+/*        NSLog(@"to send link");
          if ([beaconDBAction checkCalibrated : self->beaconInfo]){
          self.checkCalibrateLabel.text = @"This beacon has been calibrated";
          } else {
          self.checkCalibrateLabel.text = @"This beacon hasn't been calibrated";
-         }
+         } */
+        
         isInitScan = false;
         self.startButton.enabled = YES; //Finish initial scan, wait for calibration start
         [self.locationManager stopRangingBeaconsInRegion:self.beaconRegion];
@@ -255,8 +279,9 @@ bool isInitScan;
     }
    
     
-
-    measure_count++;
+    if ((!isInitScan) && (isCalibrating)){
+        measure_count++;
+    }
     
     if (beacon.rssi<0){
         measure_success_count++;
@@ -268,6 +293,8 @@ bool isInitScan;
         current_distance_label.textColor = [UIColor yellowColor];
         current_flag_label.text = @"⚑";
         
+        isCalibrating = false;
+         
         if (measure_count == max_measure_times){  //Failed with long distance
             rssi_sum = 0;
             current_flag_label.textColor = [UIColor redColor];

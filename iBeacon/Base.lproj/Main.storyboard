@@ -109,6 +109,35 @@
             </objects>
             <point key="canvasLocation" x="-886" y="-891"/>
         </scene>
+        <!--Beacon Distance Table View Controller-->
+        <scene sceneID="a0j-YO-NBN">
+            <objects>
+                <tableViewController id="Dof-An-ofH" customClass="beaconDistanceTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ejy-wO-rKu">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="WRV-Rv-hAp">
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WRV-Rv-hAp" id="wnI-hE-Ph6">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Dof-An-ofH" id="15k-lJ-SnG"/>
+                            <outlet property="delegate" destination="Dof-An-ofH" id="qT0-Gg-uno"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="9Vm-Oj-wJW"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fk0-Rk-cfl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-886" y="1166"/>
+        </scene>
         <!--Beacon Table View Controller-->
         <scene sceneID="f7l-2A-yYR">
             <objects>
@@ -243,6 +272,16 @@
                                 <state key="normal" title="Calibration" backgroundImage="blankbutton"/>
                                 <connections>
                                     <segue destination="gRR-Bu-Wqx" kind="push" id="XhJ-5D-uvV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SsF-Ia-zS9">
+                                <rect key="frame" x="70" y="318" width="181" height="97"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Measure Distance" backgroundImage="blankbutton"/>
+                                <connections>
+                                    <segue destination="Dof-An-ofH" kind="push" id="Szi-nQ-pQ8"/>
                                 </connections>
                             </button>
                         </subviews>
